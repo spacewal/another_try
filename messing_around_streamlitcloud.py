@@ -11,19 +11,6 @@ Original file is located at
 import streamlit as st
 import yfinance as yf
 import pandas as pd
-import seaborn as sns
-import tensorflow as tf
-import numpy as np
-import mplfinance as mpf
-import matplotlib.dates as mpl_dates
-import matplotlib.pyplot as plt
-import keras
-from keras.models import Sequential
-from keras.layers import LSTM, Dense, Dropout, AdditiveAttention, Permute, Reshape, Multiply, BatchNormalization
-from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TensorBoard, CSVLogger
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-from datetime import datetime, timedelta
 
 # Streamlit page setup
 st.title('S&P 500 Stock Analysis')
