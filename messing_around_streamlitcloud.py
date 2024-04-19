@@ -29,11 +29,11 @@ sp500_df = load_sp500_data()
 tickers = sp500_df['Symbol'].tolist()
 
 # Select ticker input
-selected_ticker = st.selectbox('Select a ticker:', tickers)
+# selected_ticker = st.selectbox('Select a ticker:', tickers)
 
 sp500_df.head()
 
-"""# Functions"""
+"""# Data"""
 
 # Define the Ichimoku Cloud calculation function
 def calculate_ichimoku_cloud(df):
