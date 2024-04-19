@@ -1,9 +1,4 @@
 streamlit
 pandas
-numpy
 yfinance
-tensorflow
-scikit-learn
-matplotlib
-pickle-mixin
-requests
+
