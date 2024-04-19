@@ -7,11 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1l1tpMpNG5ipeu9HGy1juyvzkoIWfMxRw
 """
 
-!pip install streamlit
-!pip install tensorflow -qqq
-!pip install keras -qqq
-!pip install yfinance -qqq
-!pip install mplfinance -qqq
 
 import streamlit as st
 import yfinance as yf
