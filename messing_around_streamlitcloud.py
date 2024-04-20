@@ -258,10 +258,10 @@ filter_options = {
 selected_filters = {key: create_filter(key, value) for key, value in filter_options.items()}
 
 # Apply all filters at once
-filtered_df = df[(df['Cloud_Status'] == selected_filters['Cloud_Status']) &
-                 (df['AO_Interpretation'] == selected_filters['AO_Interpretation']) &
-                 (df['AO_Movement'] == selected_filters['AO_Movement']) &
-                 (df['Cahold_Status'] == selected_filters['Cahold_Status'])]
+filtered_df = merged_df[(merged_df['Cloud_Status'] == selected_filters['Cloud_Status']) &
+                 (merged_df['AO_Interpretation'] == selected_filters['AO_Interpretation']) &
+                 (merged_df['AO_Movement'] == selected_filters['AO_Movement']) &
+                 (merged_df['Cahold_Status'] == selected_filters['Cahold_Status'])]
 
 # Display the filtered DataFrame
 st.dataframe(filtered_df)
