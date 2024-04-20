@@ -16,7 +16,7 @@ import pandas as pd
 st.title('S&P 500 Stock Analysis')
 
 # Fetch S&P 500 tickers and sectors from Wikipedia
-st.cache_resource
+@st.cache_data
 def load_sp500_data():
     url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
     sp500_table = pd.read_html(url)
@@ -196,9 +196,8 @@ for ticker in tickers:
 
         # Append a dictionary to the data list
         stock_dict ={
-            'Date': hist_data.index[-1],
-            'Returns': hist_data['Returns'].iloc[-1],  # Add returns here
             'Ticker': ticker,
+            'Returns': hist_data['Returns'].iloc[-1],  # Add returns here
             'Previous_Close': hist_data['Close'].iloc[-1],
             'Volume': hist_data['Volume'].iloc[-1],
             'Cloud_Status': cloud_status,
@@ -231,10 +230,6 @@ df = df_stocks[df_stocks['Volume'] > 1000000]
 
 # Merge the dataframes on 'Ticker' and 'Symbol'
 merged_df = pd.merge(df, sp500_df, left_on='Ticker', right_on='Symbol', how='left')
-
-merged_df.head()
-
-merged_df['Date'] = merged_df['Date'].dt.date
 
 merged_df.drop(columns=['Symbol'], inplace=True)
 
