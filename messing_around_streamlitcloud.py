@@ -33,7 +33,7 @@ tickers = sp500_df['Symbol'].tolist()
 
 sp500_df.head()
 
-"""# Data"""
+st.header('Data')
 
 # Define the Ichimoku Cloud calculation function
 def calculate_ichimoku_cloud(df):
@@ -92,25 +92,6 @@ def calculate_vwap(df):
 # Define the function to calculate EMA using pandas 'ewm' method
 def calculate_ema(series, span):
     return series.ewm(span=span, adjust=False).mean()
-
-# Define a function to evaluate conditions for each EMA and assign labels
-def evaluate_ema_conditions(row):
-    labels = {}
-    # Check conditions for each EMA
-    for ema in ['EMA_21', 'EMA_36', 'EMA_50', 'EMA_95', 'EMA_200']:
-        if row[ema] >= max([row[e] for e in ['EMA_50', 'EMA_95', 'EMA_200'] if e != ema]):
-            labels[ema] = "BULL"
-        elif row[ema] < row['EMA_36'] and row[ema] > max([row[e] for e in ['EMA_50', 'EMA_200'] if e != ema]):
-            labels[ema] = "BULL"
-        elif row[ema] < row['EMA_36'] and row[ema] < row['EMA_21'] and row[ema] > max([row[e] for e in ['EMA_95', 'EMA_200'] if e != ema]):
-            labels[ema] = "BULL"
-        elif row[ema] < row['EMA_21'] and row[ema] < row['EMA_36'] and row[ema] < row['EMA_50'] and row[ema] > row['EMA_200']:
-            labels[ema] = "BULL"
-        elif row[ema] < row['EMA_21'] and row[ema] < row['EMA_36'] and row[ema] < row['EMA_50'] and row[ema] < row['EMA_95']:
-            labels[ema] = "BULL"
-        else:
-            labels[ema] = "BEAR"
-    return labels
 
 # Define the function to calculate smoothed RSI
 def calculate_rsi(data, periods=14):
@@ -239,9 +220,6 @@ for ticker in tickers:
         stock_dict['MACD'] = hist_data['MACD'].iloc[-1]
         stock_dict['Signal_Line'] = hist_data['Signal_Line'].iloc[-1]
 
-        # Evaluate conditions for each EMA and assign labels
-        stock_dict['EMA_Labels'] = evaluate_ema_conditions(stock_dict)
-
         # Append the dictionary to the data list
         data.append(stock_dict)
 
@@ -250,11 +228,6 @@ df_stocks = pd.DataFrame(data)
 
 # Filter stocks with volume greater than 1 million
 df = df_stocks[df_stocks['Volume'] > 1000000]
-
-# Display the filtered DataFrame
-df.head()
-
-sp500_df.head()
 
 # Merge the dataframes on 'Ticker' and 'Symbol'
 merged_df = pd.merge(df, sp500_df, left_on='Ticker', right_on='Symbol', how='left')
@@ -265,13 +238,7 @@ merged_df['Date'] = merged_df['Date'].dt.date
 
 merged_df.drop(columns=['Symbol'], inplace=True)
 
-merged_df.info()
-
 merged_df = merged_df.dropna()
-
-merged_df.info()
-
-print(merged_df.columns)
 
 merged_df = merged_df.rename(columns={'GICS Sector': 'Sector'})
 
@@ -279,8 +246,6 @@ merged_df = merged_df.rename(columns={'GICS Sub-Industry': 'Sub_Industry'})
 
 # Strip spaces from column names
 merged_df.columns = merged_df.columns.str.strip()
-
-merged_df.head()
 
 # Function to create a selectbox filter
 def create_filter(column_name, options):
